@@ -11,7 +11,7 @@ end
   # GET /pins
   # GET /pins.json
   def index
-    @pins = Pin.all
+    @pins = current_user.pins 
   end
 
   # GET /pins/1
@@ -49,7 +49,7 @@ end
   def update
     respond_to do |format|
       if @pin.update(pin_params)
-        format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }
+        format.html { redirect_to '/pins/:id/edit', notice: 'Pin was successfully updated.' }
         format.json { render :show, status: :ok, location: @pin }
       else
         format.html { render :edit }
