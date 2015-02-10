@@ -11,12 +11,15 @@ end
   # GET /boards
   # GET /boards.json
   def index
-    @boards = Board.all
+    @boards = current_user.boards
   end
 
   # GET /boards/1
   # GET /boards/1.json
   def show
+    @board = Board.find(params[:id])
+
+    @pins = @board.pins 
   end
 
   # GET /boards/new
@@ -32,6 +35,7 @@ end
   # POST /boards.json
   def create
     @board = Board.new(board_params)
+    @board.user = current_user
 
     respond_to do |format|
       if @board.save
